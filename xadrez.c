@@ -1,28 +1,57 @@
-#include <stdio.h>  // Inclui a biblioteca padrão de entrada e saída
+#include <stdio.h>
 
-#define BISPO 5   // Constante para a movimentação do bispo
-#define TORRE 5   // Constante para a movimentação da torre
-#define RAINHA 8  // Constante para a movimentação da rainha
+#define BISPO 5   // Casas que o bispo se move na diagonal
+#define TORRE 5   // Casas que a torre se move na horizontal ou vertical
+#define RAINHA 8  // Casas que a rainha se move na horizontal
+#define CAVALO_MOV 1 // Movimento "L" do cavalo
+
+// Função recursiva para movimentar a Torre (apenas para a direita)
+void moverTorre(int num) {
+    if (num > 0) {
+        printf("Direita\n");
+        moverTorre(num - 1); // Chamada recursiva diminuindo o número de casas restantes
+    }
+}
+
+// Função recursiva para movimentar a Rainha (apenas para a esquerda)
+void moverRainha(int num) {
+    if (num > 0) {
+        printf("Esquerda\n");
+        moverRainha(num - 1); // Chamada recursiva diminuindo o número de casas restantes
+    }
+}
+
+// Função recursiva para movimentar o Bispo (diagonal superior direita)
+void moverBispo(int vertical, int horizontal) {
+    if (vertical > 0 && horizontal > 0) {
+        printf("Cima\n");
+        printf("Direita\n");
+        moverBispo(vertical - 1, horizontal - 1); // Continua o movimento diagonal
+    }
+}
+
+// Função que movimenta o cavalo em "L" (duas casas para cima e uma para a direita)
+void moverCavalo(int movimentos) {
+    for (int i = 0; i < movimentos; i++) {
+        for (int j = 0; j < 2; j++) { // Move duas casas para cima
+            printf("Cima\n");
+        }
+        printf("Direita\n"); // Move uma casa para a direita
+    }
+}
 
 int main() {
-    // Movimentação do Bispo: 5 casas na diagonal superior direita
-    printf("Movimento do Bispo:\n");  // Exibe a descrição do movimento do bispo
-    for (int i = 0; i < BISPO; i++) {  // Laço para repetir o movimento 5 vezes
-        printf("Cima\n");  // Movimento para cima (diagonal superior)
-        printf("Direita\n");  // Movimento para a direita (diagonal)
-    }
+    printf("Movimento do Bispo:\n");
+    moverBispo(BISPO, BISPO);
     
-    // Movimentação da Torre: 5 casas para a direita
-    printf("\nMovimento da Torre:\n");  // Exibe a descrição do movimento da torre
-    for (int i = 0; i < TORRE; i++) {  // Laço para repetir o movimento 5 vezes
-        printf("Direita\n");  // Movimento para a direita
-    }
+    printf("\nMovimento da Torre:\n");
+    moverTorre(TORRE);
     
-    // Movimentação da Rainha: 8 casas para a esquerda
-    printf("\nMovimento da Rainha:\n");  // Exibe a descrição do movimento da rainha
-    for (int i = 0; i < RAINHA; i++) {  // Laço para repetir o movimento 8 vezes
-        printf("Esquerda\n");  // Movimento para a esquerda
-    }
+    printf("\nMovimento da Rainha:\n");
+    moverRainha(RAINHA);
     
-    return 0;  // Fim do programa
+    printf("\nMovimento do Cavalo:\n");
+    moverCavalo(CAVALO_MOV);
+    
+    return 0;
 }
